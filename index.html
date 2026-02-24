@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToolsPro.net - Công cụ trực tuyến</title>
+    <style>
+        /* Giao diện tối ưu cho điện thoại */
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            background-color: #f0f2f5; 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh;
+        }
+        header { 
+            background: linear-gradient(135deg, #1a73e8, #0d47a1); 
+            color: white; 
+            padding: 2rem 1rem; 
+            text-align: center; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .logo { font-size: 2rem; font-weight: 800; letter-spacing: 1px; }
+        .logo span { color: #8ab4f8; }
+        
+        .container { 
+            flex: 1; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            padding: 20px; 
+        }
+        .card { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 20px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+            text-align: center; 
+            max-width: 400px; 
+            width: 100%;
+        }
+        h2 { color: #202124; margin-bottom: 15px; }
+        p { color: #5f6368; line-height: 1.6; margin-bottom: 25px; }
+        
+        .btn { 
+            background: #34a853; 
+            color: white; 
+            border: none; 
+            padding: 15px 35px; 
+            border-radius: 50px; 
+            font-size: 1.1rem; 
+            font-weight: bold;
+            cursor: pointer; 
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(52, 168, 83, 0.3);
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn:active { transform: scale(0.95); box-shadow: none; }
+        
+        footer { 
+            padding: 20px; 
+            text-align: center; 
+            font-size: 0.9rem; 
+            color: #70757a; 
+            border-top: 1px solid #dadce0;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">TOOLSPRO<span>.NET</span></div>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <h2>Xin chào! 👋</h2>
+            <p>Chào mừng bạn đến với <b>ToolsPro.net</b>. Trang web này đang được khởi tạo và sẽ sớm ra mắt những công cụ tuyệt vời nhất.</p>
+            <button class="btn" onclick="sayHello()">Bấm trải nghiệm</button>
+        </div>
+    </div>
+
+    <footer>
+        © 2026 ToolsPro.net - Chúc bạn một ngày tốt lành!
+    </footer>
+
+    <script>
+        function sayHello() {
+            alert("Tuyệt vời! Hệ thống ToolsPro.net đã nhận lệnh. Cảm ơn bạn đã ghé thăm!");
+        }
+    </script>
+</body>
+</html>
