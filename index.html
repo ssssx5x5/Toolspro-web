@@ -7,65 +7,81 @@
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
     <style>
-        body { font-family: sans-serif; background: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
         .login-card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; width: 90%; max-width: 350px; }
-        .google-btn { background: white; border: 1px solid #dadce0; color: #3c4043; padding: 12px; border-radius: 5px; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 100%; font-weight: bold; margin-top: 20px; }
+        .google-btn { background: white; border: 1px solid #dadce0; color: #3c4043; padding: 12px; border-radius: 5px; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 100%; font-weight: bold; margin-top: 20px; transition: 0.3s; }
+        .google-btn:hover { background: #f8f9fa; }
         .google-btn img { width: 20px; margin-right: 10px; }
         #user-info { display: none; }
-        .avatar { width: 80px; border-radius: 50%; margin-bottom: 10px; }
+        .avatar { width: 80px; height: 80px; border-radius: 50%; margin-bottom: 10px; border: 3px solid #1a73e8; }
+        .logout-btn { background:#dc3545; color:white; border:none; padding:12px; width:100%; border-radius:5px; margin-top: 15px; cursor: pointer; }
     </style>
 </head>
 <body>
 
     <div class="login-card" id="login-form">
-        <h2>ToolsPro.net</h2>
-        <p>Vui lòng đăng nhập để sử dụng công cụ</p>
+        <h2 style="color: #1a73e8;">TOOLSPRO.NET</h2>
+        <p>Chào mừng bạn! Vui lòng đăng nhập bằng Google để tiếp tục.</p>
         <button class="google-btn" onclick="signInWithGoogle()">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_HiRes_Logo.png" alt="G">
-            Đăng nhập với Google
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G">
+            Tiếp tục với Google
         </button>
     </div>
 
     <div class="login-card" id="user-info">
         <img id="user-photo" class="avatar" src="" alt="Avatar">
-        <h3 id="user-name"></h3>
-        <p id="user-email"></p>
-        <button onclick="signOut()" style="background:#dc3545; color:white; border:none; padding:10px; width:100%; border-radius:5px;">Đăng xuất</button>
+        <h3 id="user-name" style="margin: 5px 0;"></h3>
+        <p id="user-email" style="color: #666; font-size: 0.9rem;"></p>
+        <div style="margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px;">
+            <p>🎉 Bạn đã đăng nhập thành công!</p>
+            <button class="logout-btn" onclick="signOut()">Đăng xuất</button>
+        </div>
     </div>
 
     <script>
-        // CẤU HÌNH FIREBASE CỦA BẠN (Bạn sẽ lấy ở bước 3)
+        // CẤU HÌNH FIREBASE CỦA BẠN
         const firebaseConfig = {
-            apiKey: "CHÈN_API_KEY_CỦA_BẠN",
-            authDomain: "CỦA-BẠN.firebaseapp.com",
-            projectId: "CỦA-BẠN",
-            storageBucket: "CỦA-BẠN.appspot.com",
-            messagingSenderId: "ID-CỦA-BẠN",
-            appId: "APP-ID-CỦA-BẠN"
+            apiKey: "AIzaSyBMbqXlHWBASLa172Xr5yf7YlMErfBauUU",
+            authDomain: "toolspro-1638d.firebaseapp.com",
+            projectId: "toolspro-1638d",
+            storageBucket: "toolspro-1638d.firebasestorage.app",
+            messagingSenderId: "631612969241",
+            appId: "1:631612969241:web:0ed0bbc149907431937588",
+            measurementId: "G-CY6WGV65YR"
         };
-        firebase.initializeApp(firebaseConfig);
 
+        // Khởi tạo Firebase
+        firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const provider = new firebase.auth.GoogleAuthProvider();
 
+        // Hàm Đăng nhập
         function signInWithGoogle() {
-            auth.signInWithPopup(provider).catch(error => alert(error.message));
+            auth.signInWithPopup(provider).catch(error => {
+                console.error(error);
+                alert("Lỗi: " + error.message);
+            });
         }
 
+        // Hàm Đăng xuất
         function signOut() {
             auth.signOut();
         }
 
+        // Theo dõi trạng thái đăng nhập
         auth.onAuthStateChanged(user => {
+            const loginForm = document.getElementById('login-form');
+            const userInfo = document.getElementById('user-info');
+            
             if (user) {
-                document.getElementById('login-form').style.display = 'none';
-                document.getElementById('user-info').style.display = 'block';
-                document.getElementById('user-name').innerText = "Chào, " + user.displayName;
+                loginForm.style.display = 'none';
+                userInfo.style.display = 'block';
+                document.getElementById('user-name').innerText = user.displayName;
                 document.getElementById('user-email').innerText = user.email;
                 document.getElementById('user-photo').src = user.photoURL;
             } else {
-                document.getElementById('login-form').style.display = 'block';
-                document.getElementById('user-info').style.display = 'none';
+                loginForm.style.display = 'block';
+                userInfo.style.display = 'none';
             }
         });
     </script>
